@@ -1,4 +1,3 @@
-<!-- Confirm Delete Modal -->
 <div class="modal fade" id="veiculoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog">
         <div class="veiculomodal-container">
@@ -20,15 +19,16 @@
                 <input type="text" id="placaVeiculo" required /><br/><br/>
 
                 <input type="submit" id="Salvar" name="salvar" class="veiculomodal-submit" value="Salvar" />
-                <input type="button" id="Cancelar" name="cancelar" class="veiculomodal-cancel" value="Cancelar" />
+                <input type="button" data-dismiss="modal" class="veiculomodal-cancel" value="Cancelar" />
             </form>                
         </div>
     </div>
 </div>
 <script>
 $(document).ready(function() {
+    
+    //exibe o modal na tela
     $("#veiculoModal").modal("show");
-    console.log(action);
 
     //carrega os campos com os valores já existentes na linha selecionada
     $("#idVeiculo").prop( "disabled", true );
@@ -37,7 +37,7 @@ $(document).ready(function() {
     $("#modeloVeiculo").val(modeloVeiculo);
     $("#placaVeiculo").val(placaVeiculo);
 
-    //monta drop down dos tipos de veículos
+    //busca os dados dos tipos de veículos para montar o drop down
     $.ajax({
         type: "GET",
         url: url + 'tipos-veiculos/',
@@ -50,7 +50,8 @@ $(document).ready(function() {
         }
     });
 
-
+    //se o botão Salvar for clicado, carrega as variáveis com os valores digitados
+    //  e chama a função que envia os dados para a API
     $("form").submit(function(e) {
         e.preventDefault();
 
@@ -61,21 +62,19 @@ $(document).ready(function() {
             "placa" : $("#placaVeiculo").val()
         }
 
-        console.log(dataObj);
-        map += idVeiculo;
-        salva(map, action, dataObj);
+        salvaDados(map + idVeiculo, action, dataObj);
     });
 
-    $("#Cancelar").click(function() {
-        $("#veiculoModal").modal("hide");
-    });
-
+    //ao digitar no campo Placa, os caracteres são convertidos em maiúsculo
     $("#placaVeiculo").keyup(function() {
         $(this).val($(this).val().toUpperCase());
     });
 
 });
 
+//funcão responsável por receber os dados dos tipos de veículos
+//  e montar o drop down.
+//também seleciona o tipo de veículo, quando estiver editando
 function showDDLTipos(json) {
 
     var selected = "";
@@ -87,6 +86,7 @@ function showDDLTipos(json) {
         }
     }
     $("#ddlTipoVeiculo").val(selected);
+
 }
 
 </script>

@@ -21,6 +21,7 @@
 <script>
 $(document).ready(function() {
 
+    //mostra as informações do veículo para a confirmação da exclusão
     $("#confirmDelete").on('show.bs.modal', function () {
         var modal = $(this);
 
@@ -33,12 +34,13 @@ $(document).ready(function() {
         modal.find('.modal-title').html('Confirma Apagar Tipo de Veículo?');
     });
 
+    //exibe o modal na tela
     $("#confirmDelete").modal("show");
 
+    //se a exclusão for confirmada, chama a função que envia os dados para a API
     $("#btnConfirmDelete").click(function(){
-        map += idVeiculo;
         $("#confirmDelete").modal("hide");
-        salva(map, action, "");
+        salvaDados(map + idVeiculo, action, "");
     });
 
 });

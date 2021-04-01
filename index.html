@@ -3,7 +3,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -12,16 +12,14 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
-    <!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
     <script src="./jquery/jquery-3.6.0.min.js"></script>
     <script src="./jquery/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
-    <!-- <script>window.jQuery || document.write('<script src="./bootstrap/assets/js/vendor/jquery.min.js"><\/script>');</script> -->
     <script src="./bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="./bootstrap/assets/js/ie10-viewport-bug-workaround.js"></script>
     <script src="./exibeConsulta.js"></script>
-    <script src="./conectAPI.js"></script>
+    <script src="./salvaDados.js"></script>
+    <script src="./fncModal.js"></script>
 
     <!-- jQuery UI -->
     <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
@@ -44,11 +42,6 @@
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <script src="./bootstrap/assets/js/ie-emulation-modes-warning.js"></script>
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
   </head>
 
   <body>
@@ -102,16 +95,14 @@
     </div>    
 
     <script >
-        console.log("Teste GitHub");
 
-        //var url = 'http://ec2-18-216-4-98.us-east-2.compute.amazonaws.com:8080/';
-        var url = 'http://18.216.4.98:8080/';
-        //var url = 'http://localhost:8080/';
-        
+        //var url = 'http://localhost:8080/';   //MySQL local
+        var url = 'http://18.216.4.98:8080/';   //AWS RDS
         var map = 'veiculos/';
 
         $( document ).ready(function(){
 
+            //busca os veículos cadastrados para exibição na inicialização da página
             $.ajax({
                 type: "GET",
                 url: url + map,
@@ -124,25 +115,29 @@
                 }
             });
 
-            
+            //responde quado alguma imagem dentro da página é clicada
             $('body').on('click', 'img', function(){
-                action = $(this).attr('alt');
-                id = $(this).closest('tr').attr('id');
-                idVeiculo = id === undefined ? "" : $(this).closest('tr').attr('id').substr(2);
-                marcaVeiculo = $('#tr' + idVeiculo + ' td:eq(1)').html();
+                action = $(this).attr('alt');   //busca o atributo alt da imagem
+                id = $(this).closest('tr').attr('id');  //busca o id da linha correspondente
+                idVeiculo = id === undefined ? "" : $(this).closest('tr').attr('id').substr(2); //extrai o id do veículo
+                //carrega as variáveis para utilização no modal
+                marcaVeiculo = $('#tr' + idVeiculo + ' td:eq(1)').html();   
                 modeloVeiculo = $('#tr' + idVeiculo + " td:eq(2)").html();
                 tipoVeiculo = $('#tr' + idVeiculo + " td:eq(3)").html();
                 placaVeiculo = $('#tr' + idVeiculo + " td:eq(4)").html();
 
-                if(action === 'PUT' || action === 'POST') {
+                //abre o modal para inserção ou alteração do veículo
+                if(action === 'POST' || action === 'PUT') {
                     $( "#divModal" ).load( "veiculoModal.html", { restrito : "restrito" } );
                 }
+                //abre o modal para exclusão do veículo
                 else if (action === 'DELETE') {
                     $( "#divModal" ).load( "excluirVeiculoModal.html", { restrito : "restrito"} );
                 }
 
             });
 
+            //botão que abre a página de cadastro dos tipos de veículos
             $("#btnTipoVeiculo").click(function(){
                 window.open("tipoVeiculo.html");
             });

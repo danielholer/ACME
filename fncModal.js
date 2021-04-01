@@ -1,35 +1,4 @@
-function conectAPI(map, action, dataString) {
-
-    var msg = "Salvo com sucesso";
-
-    if(action === "DELETE"){
-        dataString = "";
-        msg = "Apagado com sucesso";
-    }
-
-    $.ajax({
-        type: action,
-        url: url + map,
-        contentType: "application/json",
-        dataType: "json",
-        data: dataString,
-        success: function(res, status) {
-            okDialog.show(msg, {onHide: function () {location.reload();}});
-        },
-        error: function(res, status) {
-            errorDialog.show(res.responseJSON.titulo);
-        }
-    });
-
-}
-
-function salva(map, action, dataObj) {
-    var dataJson =  JSON.stringify(dataObj);
-
-    conectAPI(map, action, dataJson);
-}
-
-
+//funções responsáveis pelas funcionalidades do modal
 var okDialog = okDialog || (function ($) {
     'use strict';
 

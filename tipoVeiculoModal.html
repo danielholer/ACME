@@ -1,4 +1,3 @@
-<!-- Confirm Delete Modal -->
 <div class="modal fade" id="tipoVeiculoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog">
         <div class="veiculomodal-container">
@@ -16,13 +15,15 @@
                 <textarea id="tipoDescricao" rows='5' cols='60' required></textarea><br/><br/>
 
                 <input type="submit" id="Salvar" name="salvar" class="veiculomodal-submit" value="Salvar" />
-                <input type="button" id="Cancelar" name="cancelar" class="veiculomodal-cancel" value="Cancelar" />
+                <input type="button" data-dismiss="modal" class="veiculomodal-cancel" value="Cancelar" />
             </form>                
         </div>
     </div>
 </div>
 <script>
 $(document).ready(function() {
+
+    //exibe o modal na tela
     $("#tipoVeiculoModal").modal("show");
     
     //carrega os campos com os valores já existentes na linha selecionada
@@ -31,6 +32,8 @@ $(document).ready(function() {
     $("#tipoVeiculo").val(tipoVeiculo);
     $("#tipoDescricao").val(tipoDescricao);
 
+    //se o botão Salvar for clicado, carrega as variáveis com os valores digitados
+    //  e chama a função que envia os dados para a API
     $("form").submit(function(e) {
         e.preventDefault();
 
@@ -39,12 +42,7 @@ $(document).ready(function() {
             "descricao" : $("#tipoDescricao").val()
         }
         
-        map += idTipoVeiculo;
-        salva(map, action, dataObj);
-    });
-
-    $("#Cancelar").click(function() {
-        $("#tipoVeiculoModal").modal("hide");
+        salvaDados(map + idTipoVeiculo, action, dataObj);
     });
 
 });
