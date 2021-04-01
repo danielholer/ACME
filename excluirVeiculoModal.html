@@ -1,0 +1,45 @@
+<!-- Confirm Delete Modal -->
+<div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="confirmDelete" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmDeleteTitle" style="float:left;"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" style="float:right;">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" id="btnConfirmDelete">Apagar</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+$(document).ready(function() {
+
+    $("#confirmDelete").on('show.bs.modal', function () {
+        var modal = $(this);
+
+        var html = "ID: " + idVeiculo;
+        html += "<br/>Marca: " + marcaVeiculo;
+        html += "<br/>Modelo: " + modeloVeiculo;
+        html += "<br/>Tipo: " + tipoVeiculo;
+        html += "<br/>Placa: " + placaVeiculo;
+        modal.find('.modal-body').html(html);
+        modal.find('.modal-title').html('Confirma Apagar Tipo de Veículo?');
+    });
+
+    $("#confirmDelete").modal("show");
+
+    $("#btnConfirmDelete").click(function(){
+        map += idVeiculo;
+        $("#confirmDelete").modal("hide");
+        salva(map, action, "");
+    });
+
+});
+</script>

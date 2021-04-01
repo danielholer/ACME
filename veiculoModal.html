@@ -1,0 +1,93 @@
+<!-- Confirm Delete Modal -->
+<div class="modal fade" id="veiculoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="veiculomodal-container">
+            <form method="POST">
+
+                <label style='font-weight: 100; color: white;'>ID:</label><br/>
+                <input type="number" id="idVeiculo" /><br/><br/>
+
+                <label style='font-weight: 100; color: white;'>Marca:</label><br/>
+                <input type="text" id="marcaVeiculo" required /><br/><br/>
+
+                <label style='font-weight: 100; color: white;'>Modelo:</label><br/>
+                <input type="text" id="modeloVeiculo" required /><br/><br/>
+
+                <label style='font-weight: 100; color: white;'>Tipo:</label><br/>
+                <select id="ddlTipoVeiculo" required></select><br/><br/>
+
+                <label style='font-weight: 100; color: white;'>Placa:</label><br/>
+                <input type="text" id="placaVeiculo" required /><br/><br/>
+
+                <input type="submit" id="Salvar" name="salvar" class="veiculomodal-submit" value="Salvar" />
+                <input type="button" id="Cancelar" name="cancelar" class="veiculomodal-cancel" value="Cancelar" />
+            </form>                
+        </div>
+    </div>
+</div>
+<script>
+$(document).ready(function() {
+    $("#veiculoModal").modal("show");
+    console.log(action);
+
+    //carrega os campos com os valores já existentes na linha selecionada
+    $("#idVeiculo").prop( "disabled", true );
+    $("#idVeiculo").val(idVeiculo);
+    $("#marcaVeiculo").val(marcaVeiculo);
+    $("#modeloVeiculo").val(modeloVeiculo);
+    $("#placaVeiculo").val(placaVeiculo);
+
+    //monta drop down dos tipos de veículos
+    $.ajax({
+        type: "GET",
+        url: url + 'tipos-veiculos/',
+        contentType: "application/json",
+        dataType: "json",
+        success: function(data, status){
+            if(status === "success") {
+                showDDLTipos(data);
+            }
+        }
+    });
+
+
+    $("form").submit(function(e) {
+        e.preventDefault();
+
+        var dataObj = {
+            "marca" : $("#marcaVeiculo").val(),
+            "modelo" : $("#modeloVeiculo").val(),
+            "tipoVeiculo" : { "id" : $("#ddlTipoVeiculo").val() },
+            "placa" : $("#placaVeiculo").val()
+        }
+
+        console.log(dataObj);
+        map += idVeiculo;
+        salva(map, action, dataObj);
+    });
+
+    $("#Cancelar").click(function() {
+        $("#veiculoModal").modal("hide");
+    });
+
+    $("#placaVeiculo").keyup(function() {
+        $(this).val($(this).val().toUpperCase());
+    });
+
+});
+
+function showDDLTipos(json) {
+
+    var selected = "";
+    $("#ddlTipoVeiculo").append(new Option());
+    for(var key in json) {
+        $("#ddlTipoVeiculo").append(new Option(json[key]["tipo"], json[key]["id"]));
+        if(tipoVeiculo === json[key]["tipo"]) {
+            selected = json[key]["id"];
+        }
+    }
+    $("#ddlTipoVeiculo").val(selected);
+}
+
+</script>
+

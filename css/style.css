@@ -1,0 +1,147 @@
+/*
+.table-striped > tbody > tr:nth-of-type(even) {
+    background-color: #c4c4c4;
+}
+*/
+
+body {
+    /* background-color: lightsteelblue; */
+}
+/*
+.navbar {
+    background-color: #c4c4c4;
+}
+*/
+
+.panel {
+    margin-top: 25px;
+    border: none;
+}
+
+.panel-primary {
+    border: none;
+}
+
+.panel-heading, .input-heading {
+    background-color: #286090;
+    /* border-color: #286090; */
+    border-radius: 5px;
+}
+
+.input-heading {
+    color:white; 
+    /* width:188px; */
+    height:40px;
+    padding: 10px;
+}
+
+table {
+    border-collapse: collapse;
+    /*margin-top: 50px;*/
+}
+
+.parentEven {
+    background-color: #c4c4c4;
+}
+
+.parentOdd {
+    background-color: #e4e4e4;
+}
+
+.childEven {
+    font-family: Times;
+    background-color: #EEE8AA;
+}
+
+.childOdd {
+    font-family: Times;
+    background-color: #FEF8CA;
+}
+
+.child2Even {
+    font-family: Times;
+    background-color: #BCEFBC;
+}
+
+.child2Odd {
+    font-family: Times;
+    background-color: #CCFFCC;
+}
+
+.negativo {
+    color:#c50000; 
+    /* background-color:pink; */
+}
+
+.textLeft {
+    text-align: left;
+}
+
+.textRight {
+    text-align: right;
+}
+
+.textCenter {
+    text-align: center;
+}
+
+.middle {
+    vertical-align: middle;
+}
+
+.header {
+    background-color: #286090;
+    color: white;
+    vertical-align: middle;
+}
+
+.childHeader {
+    font-family: Times;
+    font-weight: bold;
+    background-color: #BDB76B;
+}
+
+.child2Header {
+    font-family: Times;
+    font-weight: bold;
+    background-color: #8FBC8F;
+}
+
+.child {
+    font-family: Times;
+    color:darkgray;
+}
+
+.parentSeq {
+    padding-left: 32px;
+}
+
+.form-group input[type="checkbox"] {
+    display: none;
+}
+
+.form-group input[type="checkbox"] + .btn-group > label span {
+    width: 20px;
+}
+
+.form-group input[type="checkbox"] + .btn-group > label span:first-child {
+    display: none;
+}
+.form-group input[type="checkbox"] + .btn-group > label span:last-child {
+    display: inline-block;   
+}
+
+.form-group input[type="checkbox"]:checked + .btn-group > label span:first-child {
+    display: inline-block;
+}
+.form-group input[type="checkbox"]:checked + .btn-group > label span:last-child {
+    display: none;   
+}
+
+.btn-primary {
+    background-color: #286090;
+}
+
+.noBreak {
+    white-space: nowrap;
+}

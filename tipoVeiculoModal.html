@@ -1,0 +1,52 @@
+<!-- Confirm Delete Modal -->
+<div class="modal fade" id="tipoVeiculoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="veiculomodal-container">
+            <form method="POST">
+
+                <label style='font-weight: 100; color: white;'>ID:</label><br/>
+                <input type="number" id="idTipoVeiculo" /><br/><br/>
+
+                <label style='font-weight: 100; color: white;'>Tipo:</label><br/>
+                <input type="text" id="tipoVeiculo" required />
+                <span id="errTipoVeiculo" style='font-weight: 100; color: red; display:none;'>Este tipo de veículo já existe</span>
+                <br/><br/>
+
+                <label style='font-weight: 100; color: white;'>Descricao:</label><br/>
+                <textarea id="tipoDescricao" rows='5' cols='60' required></textarea><br/><br/>
+
+                <input type="submit" id="Salvar" name="salvar" class="veiculomodal-submit" value="Salvar" />
+                <input type="button" id="Cancelar" name="cancelar" class="veiculomodal-cancel" value="Cancelar" />
+            </form>                
+        </div>
+    </div>
+</div>
+<script>
+$(document).ready(function() {
+    $("#tipoVeiculoModal").modal("show");
+    
+    //carrega os campos com os valores já existentes na linha selecionada
+    $("#idTipoVeiculo").prop( "disabled", true );
+    $("#idTipoVeiculo").val(idTipoVeiculo);
+    $("#tipoVeiculo").val(tipoVeiculo);
+    $("#tipoDescricao").val(tipoDescricao);
+
+    $("form").submit(function(e) {
+        e.preventDefault();
+
+        var dataObj = {
+            "tipo" : $("#tipoVeiculo").val(),
+            "descricao" : $("#tipoDescricao").val()
+        }
+        
+        map += idTipoVeiculo;
+        salva(map, action, dataObj);
+    });
+
+    $("#Cancelar").click(function() {
+        $("#tipoVeiculoModal").modal("hide");
+    });
+
+});
+</script>
+
