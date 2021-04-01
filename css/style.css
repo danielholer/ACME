@@ -1,18 +1,3 @@
-/*
-.table-striped > tbody > tr:nth-of-type(even) {
-    background-color: #c4c4c4;
-}
-*/
-
-body {
-    /* background-color: lightsteelblue; */
-}
-/*
-.navbar {
-    background-color: #c4c4c4;
-}
-*/
-
 .panel {
     margin-top: 25px;
     border: none;
